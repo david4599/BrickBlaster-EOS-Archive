@@ -10,9 +10,9 @@ This game was made using a custom DOS extender called EOS (Eclipse Operating Sys
 Note: The game source tree is not exactly matching the released version and some files need to be patched otherwise the game may crash in some cases.
 The updated and patched version of the sources with detailed building steps can be found in this repository: [BrickBlaster](https://github.com/david4599/BrickBlaster)
 
-Also, here are links to download the released game:
-- French: [https://archive.org/details/brick-blaster-1999](https://archive.org/details/brick-blaster-1999)
-- Spanish: [https://archive.org/details/brick-blaster-1999-spanish](https://archive.org/details/brick-blaster-1999-spanish)
+Also, here are links to download the game:
+- French commercial release: [https://archive.org/details/brick-blaster-1999](https://archive.org/details/brick-blaster-1999)
+- Spanish commercial release: [https://archive.org/details/brick-blaster-1999-spanish](https://archive.org/details/brick-blaster-1999-spanish)
 
 ## Credits
 - Members of the [Eclipse](https://www.eclipse-game.com) demomaker team:
