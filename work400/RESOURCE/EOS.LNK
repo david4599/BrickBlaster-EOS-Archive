@@ -1,0 +1,101 @@
+
+system begin eos_asm
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\weos.exe
+    F ..\RESOURCE\WSTARTUP
+    format os2 le
+end
+
+system begin eoslite_asm
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\weoslite.exe
+    F ..\RESOURCE\WSTARTUP
+    format os2 le
+end
+
+system begin eos_c
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\weos.exe
+    P ..\RESOURCE
+    F WSTARTUP
+    format os2 le
+end
+
+system begin eoslite_c
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\weoslite.exe
+    P ..\RESOURCE
+    F WSTARTUP
+    format os2 le
+end
+
+system begin stub_c
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\wstub.exe
+    P ..\RESOURCE
+    F WSTARTUP
+    format os2 le
+end
+
+system begin stublite_c
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\wstublte.exe
+    P ..\RESOURCE
+    F WSTARTUP
+    format os2 le
+end
+
+system begin stub_asm
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\wstub.exe
+    F ..\RESOURCE\WSTARTUP
+    format os2 le
+end
+
+system begin stublite_asm
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    op stub=..\resource\wstublte.exe
+    F ..\RESOURCE\WSTARTUP
+    format os2 le
+end
+
+system begin watcom
+    op osname='Eclipse Operating System'
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\dos
+    format os2 le
+end
+
+system begin wineos
+    libpath %WATCOM%\lib386
+    libpath %WATCOM%\lib386\nt
+    L ..\wineos\wineos.lib
+    L gdi32.lib
+    L winmm.lib
+    L kernel32.lib
+    L user32.lib
+    L ddraw.lib
+    L dxguid.lib
+    L dinput.lib
+    L dsound.lib
+    option START=DosStart
+    option osname='WinEOS'
+    format windows nt ^
+    runtime windows=4.0
+end

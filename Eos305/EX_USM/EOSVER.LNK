@@ -1,0 +1,9 @@
+D:\WORK310\RESOURCE\eoslite +
+play.obj +
+error.obj usmplay.obj uss.obj ussvar.obj +
+usmload.obj xmload.obj modload.obj stmload.obj loadutil.obj +
+gusdrv.obj sbdrv.obj nosnddrv.obj hpdrv.obj mix.obj +
+files.obj memory.obj timer.obj hardware.obj utils.obj ldebug.obj
+play.exe
+/3
+;

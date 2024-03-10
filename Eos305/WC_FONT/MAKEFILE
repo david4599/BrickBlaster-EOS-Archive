@@ -1,0 +1,249 @@
+#
+# DOS4GW/EOS Generic Makefile
+#
+# (C) Thomas MANGIN 1997
+#
+
+
+#
+# Use :
+#    Construct your software                  : WMAKE
+#    Delete all the unused file for archiving : WMAKE clean
+#
+
+
+# C_ONLY_COMPILATION   : C or C++ compiler
+# OPTIMIZE_COMPILATION : Use optimised compilation flags
+# ACTIVE_DEBUGING      : Define the DEBUG "macro" (preprocesor)
+# ACTIVE_TRACE_CPU     : Define the TRACE_CPU "macro" (preprocesor)
+# PROTECTED_MODE       : Do you want to creat an DOS4GW or EOS Executable
+# EOS_CODE             : Create a EOS Executable instead of a DOS4GW
+#                        This automaticaly set PROTECTED_MODE value to TRUE
+
+# Change TRUE/FALSE to modify the makefile behaviour
+
+C_ONLY_COMPILATION      = FALSE
+OPTIMIZE_COMPILATION    = FALSE
+ACTIVE_DEBUGING         = TRUE
+ACTIVE_TRACE_CPU        = TRUE
+PROTECTED_MODE          = TRUE
+EOS_CODE                = TRUE
+
+# DIR_BASE    : Where are the EOS resources files   (DEFAULT : .)
+# DIR_OUT     : Where the obj files will de created (DEFAULT : $(DIR_BASE))
+# DIR_INCLUDE : Where are your C or C++ files       (DEFAULT : $(DIR_BASE)\INCLUDE)
+# DIR_EOS     : Where are *your* include files      (DEFAULT : ..\RESOURCE)
+# LINK_FILE   : Name of your link file definition   (DEFAULT : $(DIR_BASE)\LOCAL.LNK)
+
+DIR_BASE        = .
+DIR_OUT         = $(DIR_BASE)
+
+DIR_INCLUDE     = $(DIR_BASE)
+DIR_EOS         = ..\RESOURCE
+LINK_FILE       = $(DIR_OUT)\LOCAL.LNK
+
+# APPLICATION : Name of your executable (can be different from your C files)
+# OBJECTS     : List of all the object files needed to be construct
+
+APPLICATION1    = $(DIR_OUT)\SAVE_ROM.EXE
+APPLICATION2    = $(DIR_OUT)\FONT.EXE
+OBJECTS1        = SAVE_ROM.OBJ
+OBJECTS2        = FONT.OBJ EXAMPLE.OBJ
+
+# ASM : Your favorite Assembler
+
+ASM             = TASM
+
+# List of optimisation flags for ASM
+
+TASM_FLAGS      = /w2 /ml /n /p
+MASM_FLAGS      =
+WASM_FLAGS      =
+
+
+
+#   ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+#   บ Under this line do not modiy the makefile if you are not skilled บ
+#   ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+
+#
+# Create the good compiler name
+#
+
+!ifeq EOS_CODE TRUE
+PROTECTED_MODE = TRUE
+!endif
+
+!ifeq PROTECTED_MODE TRUE
+PROCESSOR = 386
+!endif
+
+!ifeq PROCESSOR 386
+MODEL = f       # flat
+!else
+MODEL = l       # large
+!endif
+
+!ifeq C_ONLY_COMPILATION TRUE
+COMPILER = WCC
+!else
+COMPILER = WPP
+!endif
+
+CC              = $(COMPILER)$(PROCESSOR)
+
+#
+# Set the appropriate compiler options
+#
+
+ASM_FLAGS       =
+!ifeq ASM TASM
+ASM_FLAGS       = $(TASM_FLAGS)
+!endif
+!ifeq ASM MASM
+ASM_FLAGS       = $(MASM_FLAGS)
+!endif
+!ifeq ASM WASM
+ASM_FLAGS       = $(WASM_FLAGS)
+!endif
+
+C_FLAGS         = -fo=$(DIR_OUT)\ -m$(MODEL) -d3
+!ifeq OPTIMIZE_COMPILATION TRUE
+C_FLAGS         = -fo=$(DIR_OUT)\ -m$(MODEL) -j -mf -fpi87 -fp3 -4s -oailt -4
+!endif
+
+#
+# DEBUG_FLAGS : Usefull define for include debugging only code
+#
+
+DEBUG_FLAGS     =
+!ifeq ACTIVE_DEBUGING TRUE
+DEBUG_FLAGS     = -DDEBUG
+!endif
+
+!ifeq ACTIVE_TRACE_CPU TRUE
+DEBUG_FLAGS     += -DTRACE_CPU
+!endif
+
+!ifeq EOS_CODE TRUE
+DEBUG_FLAGS     += -DEOS_CODE
+!endif
+
+
+#
+# List of non standard library needed (not used)
+#
+
+LIB_FLAGS       =
+
+#
+# Do not display the command lines (No actived)
+#
+
+#.SILENT
+
+#
+# Launched at the makefile start
+#
+
+.BEFORE
+        # List of all the include files (yours and system)
+        # This allow to not use the -I option in command line (clearer)
+        @set INCLUDE=$(%INCLUDE);$(DIR_INCLUDE)
+!ifeq EOS_CODE TRUE
+                @set INCLUDE=$(%INCLUDE);$(DIR_EOS)
+!endif
+
+#
+# First label entry default building (allow several execs)
+#
+
+ALL: $(APPLICATION1) $(APPLICATION2) RUN
+
+#
+# Application creation
+#
+
+$(APPLICATION1) : $(OBJECTS1)
+        @if exist $(LINK_FILE) @del $(LINK_FILE)
+        @%create $(LINK_FILE)
+        @%append $(LINK_FILE) name $(APPLICATION1)
+        @%append $(LINK_FILE) debug Watcom
+!ifeq EOS_CODE TRUE
+        @%append $(LINK_FILE) option osname='Eclipse Operating System'
+        @%append $(LINK_FILE) option stub=$(DIR_EOS)\weoslite.exe
+        @%append $(LINK_FILE) format os2 le
+        @%append $(LINK_FILE) file $(DIR_EOS)\WSTARTUP
+        @%append $(LINK_FILE) file $(DIR_EOS)\WVESA
+        @%append $(LINK_FILE) file $(DIR_EOS)\DEBUG
+!endif
+        @%append $(LINK_FILE) libpath %WATCOM%\lib386
+        @%append $(LINK_FILE) libpath %WATCOM%\lib386\dos
+        @for %newobj in ($(OBJECTS1)) do @%append $(LINK_FILE) file $(DIR_OUT)\%newobj
+
+        @wlink @$(LINK_FILE)
+
+$(APPLICATION2) : $(OBJECTS2)
+        @if exist $(LINK_FILE) @del $(LINK_FILE)
+        @%create $(LINK_FILE)
+        @%append $(LINK_FILE) name $(APPLICATION2)
+        @%append $(LINK_FILE) debug Watcom
+!ifeq EOS_CODE TRUE
+        @%append $(LINK_FILE) option osname='Eclipse Operating System'
+        @%append $(LINK_FILE) option stub=$(DIR_EOS)\weoslite.exe
+        @%append $(LINK_FILE) format os2 le
+        @%append $(LINK_FILE) file $(DIR_EOS)\WSTARTUP
+        @%append $(LINK_FILE) file $(DIR_EOS)\WVESA
+        @%append $(LINK_FILE) file $(DIR_EOS)\DEBUG
+!endif
+        @%append $(LINK_FILE) libpath %WATCOM%\lib386
+        @%append $(LINK_FILE) libpath %WATCOM%\lib386\dos
+        @for %newobj in ($(OBJECTS2)) do @%append $(LINK_FILE) file $(DIR_OUT)\%newobj
+
+        @wlink @$(LINK_FILE)
+
+
+RUN : .SYMBOLIC
+        FONT.EXE
+
+#
+# Delete all the non necessery files to allow archiving
+#
+
+clean: .SYMBOLIC
+        @for %DELOBJ in ($(OBJECTS1)) do @del $(DIR_OUT)\%DELOBJ
+        @for %DELOBJ in ($(OBJECTS2)) do @del $(DIR_OUT)\%DELOBJ
+        @del $(DIR_BASE)\*.ERR $(APPLICATION1) $(APPLICATION2)
+        @del $(DIR_BASE)\*.BAK $(DIR_INCLUDE)\*.BAK
+        @del $(LINK_FILE)
+
+#
+# Order of construction
+#
+
+.EXTENSIONS:
+.EXTENSIONS: .exe .obj .asm .c .cc .cpp
+
+#
+# Generic compilation rules
+#
+
+.asm : $(DIR_BASE)
+.asm.obj : .AUTODEPEND
+        $(ASM) $(DIR_BASE)\$^&.asm $(ASMFLAGS),$(DIR_OUT)
+
+.c : $(DIR_BASE)
+.c.obj: .AUTODEPEND
+        $(CC)  $(DIR_BASE)\$^&.c   $(DEBUG_FLAGS) $(C_FLAGS)
+
+.cc : $(DIR_BASE)
+.cc.obj: .AUTODEPEND
+        $(CC)  $(DIR_BASE)\$^&.cc  $(DEBUG_FLAGS) $(C_FLAGS)
+
+.cpp : $(DIR_BASE)
+.cpp.obj: .AUTODEPEND
+        $(CC)  $(DIR_BASE)\$^&.cpp $(DEBUG_FLAGS) $(C_FLAGS)
+
+.obj : $(DIR_OUT)
+.obj.exe: .AUTODEPEND

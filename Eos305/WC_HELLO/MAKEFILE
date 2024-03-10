@@ -1,0 +1,15 @@
+PROGNAME = TEST
+RES      = ..\RESOURCE
+
+CFLAGS = /j /mf /fpi87 /fp3 /oailt -4
+CC = WCC386
+
+.c.obj:
+        $(CC) $(CFLAGS) $*.c
+
+all: $(PROGNAME).exe
+
+$(PROGNAME).exe : $(PROGNAME).obj
+
+   @wlink F $(PROGNAME) \
+          @$(RES)\eos.lnk system eoslite_c

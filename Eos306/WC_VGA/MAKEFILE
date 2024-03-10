@@ -1,0 +1,16 @@
+PROGNAME = WC_VGA
+RES      = ..\RESOURCE
+
+ASMFLAGS = /m /p /q
+ASM = TASM
+
+.asm.obj:
+        $(ASM) $(ASMFLAGS) $*
+
+
+all: $(PROGNAME).exe
+
+$(PROGNAME).exe : $(PROGNAME).obj
+
+   @wlink F $(PROGNAME) \
+          @$(RES)\eos.lnk system eos_asm

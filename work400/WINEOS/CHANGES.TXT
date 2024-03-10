@@ -1,0 +1,38 @@
+
+
+Changement a faire pour avoir une programme dos & win32:
+
+
+toutes les interruptions (int) doivent etre remplacer par _int)
+
+le handle d'ouverture d'un fichier par la fonctin 3dh int 21h est sur
+32bits et non 16 ex:
+        mov ax,3d00h
+        _int  21h
+        jc Error
+        mov ebx,eax
+        mov ah,3fh
+        ...
+
+les fonctions d'eos :
+                    Use_Int_08
+                    Change_Synchro_Int_08
+                    Detect_Windows
+                    Allocate_Selector
+                    DeAllocate_Selector
+                    Physical_Address_Mapping
+                    Free_Physical_Address_Mapping
+                    Get_Int
+                    Set_Int
+                    Get_Irq
+                    Set_Irq
+                    Get_Exception
+                    Set_Exception
+        ne fonctionne pas sous WIN32 , il ne faut plus les appeler
+
+Les selecteurs comme enviromement_Sel ne fonctionne plus. Ils foaut les
+remplacer par par leur version avec Addr
+        xor esi,esi
+        mov es,[Environment_Sel]
+       par:
+        mov esi,[Environmment_Addr]

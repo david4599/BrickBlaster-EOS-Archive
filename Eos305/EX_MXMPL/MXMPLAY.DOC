@@ -1,0 +1,521 @@
+
+                                     ‹‹
+                     ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹ €€ ‹‹‹ ‹‹ ‹‹‹‹‹‹‹‹
+                        ‹‹‹‹‹ ‹‹  ‹‹ €€‹‹‹  ‹‹  ‹‹‹‹‹ tm
+                       €€     €€  €€ €€  €€ €€ €€
+                       €€     €€  €€ €€  €€ €€ €€
+                        ﬂﬂﬂﬂﬂ  ﬂﬂﬂﬂﬂ ﬂﬂﬂﬂﬂ  ﬂﬂ  ﬂﬂﬂﬂﬂ
+                     ﬂﬂﬂﬂ tiny gus xm player  v1.6 ﬂﬂﬂﬂ
+
+
+
+    Legal disclaimer:
+==============================================================================
+
+  You may copy this package without restrictions as long as no
+  money is charged for copying and it is passed on unmodified with
+  all its files:
+    MXMPLAY.DOC           (this file)
+    FILE_ID.DIZ           (fileid)
+    MXMPLAY.ASM           (the player source)
+    MXMPLAY.H             (include file for c/c++)
+    MXMPLAY.INC           (include file for asm)
+    MXMALLFX.INC          (all effects include file for mxmplay.asm)
+    MXMPLAY.OBJ           (compiled player object)
+    XM2MXM.CPP            (the conversion source)
+    XM2MXM.EXE            (the conversion program)
+    CPPEXAM.CPP           (example for WC++)
+    MXMPLAY.EXE           (compiled C++ example, plays .MXM files)
+    MAKEFILE.             (makefile for wmake)
+    ATOMIC.INC            (asm include song dump for examples)
+    ???EXAM.ASM           (asm-example for supported systems)
+    ???MAKE.BAT           (make files for asm-examples)
+    ATOMIC.XM             (original song by Screamager)
+    MXMPTMT.PAS           (unit for tmt pascal lite 0.31·)
+
+  The package is delivered as is. The author does not guarantee to
+  make further versions or bugfixes. The author cannot be made liable for
+  damage or data loss this piece of code causes, use it at your own risk.
+
+  You may use MXMPLAY in your productions if:
+    -you credit me for the player while runtime or in an info file.
+    -no money is charged for your production.
+    -you leave the copyright message where it is.
+
+  If you do not obey those simple rules, you'll get in trouble.
+
+  The author reserves the right to exclude certain people or groups
+  from the license to use this product.
+
+  You may modify the source for your productions (see Introduction!).
+
+  This product is NOT related to a demo group called
+  "cubic team" in any way! I wonder what "team" means anyway...
+
+
+
+
+    Introduction
+==============================================================================
+
+  This is a MOD and XM player package for the GUS in flat mode.
+  It was optimized for size not for speed. The size is about 5.6k or 3.8k
+  if you pack it with PMWLITE, but the size can be reduced by excluding
+  unused effects. It was designed for the compo version of 64k intros,
+  originally for the Lasse Reinb0ng Intro by cubic team & $een presented at
+  the Party 5 held in the end of December'95 in Fredericia/Denmark.
+  It supports nearly all XM effects and features. You can also play S3Ms,
+  but the player will only play what FastTracker II makes of it.
+  It supports the GUS and no device.
+  It supports at least DOS/4G(W), PMODE/W, DOS32 and EOS. It will also work
+  with PMODE if you set up a flat memory model (see section MXMPLAY.ASM...)
+  or make "gates" to the functions, that make a temporary flat model
+  (flat stack and flat code, ie: cs=ds=es=ss).
+  It supplies timer and music syncronisation functions for your production.
+
+  If you find any incompatibilities with FT2 please tell me.
+
+  Please ONLY use MXMPLAY if the size of the executable matters.
+  If not use a real soundsystem like MIDAS!
+  I'd also like to encourage you to make a final version of your production
+  if you use a GUS-only player like MXMPLAY, because there are still so
+  many guys, who do not own a GUS and demos/intros without sound are soooooo
+  boooooooring.
+  I will NOT make support for any other soundcards than GUS in MXMPLAY.
+  What I might do someday is a public soundsystem with support for
+  various soundcards, which can be used like MXMPLAY. (probably XM only)
+
+  If you make changes to mxmplay to make it work with different systems or
+  add new features to it, please send me a copy and a *description* your
+  changes. I will then include it in the official package (with credits,
+  of course), and you don't have to change new versions.
+
+  I am especially interested in:
+    -SB series support (this will give BIIIIG creds! :) )
+    -screen sync
+    -a pmode example
+
+
+
+
+    Revision history:
+==============================================================================
+
+  1.6: 16.11.96
+    -fixed the bug with keyoff and instruments without volume envelopes:
+      keyoff will cut the note if no instrument is specified at the same
+      time, otherwise the note will be faded out.
+    -removed all the local labels, which cool assemblers can handle, but
+      stupid ones cannot. anonymous block endings were also removed, as
+      well as simplified segment declarations. now also wasm and masm
+      should be able to compile mxmplay.
+    -Wxx is now also sync for compatibility with MIDAS and MIKMOD.
+      (thanks to rasky/spiral for info)
+    -tmt pascal lite 0.31· unit source included.
+
+  1.5: 15.9.96
+    -xmpInit now only accepts the GUS port
+    -xmpGetGUSPort gets the GUS port from an environment near ptr
+    -xmpGetEnvPtrDPMI gets the environment near ptr from the PSP seg
+    -xmpGetEnvPtrDOS32 gets the environment near ptr for DOS 32 progs
+    -volume fadeout is used even if volume envelope is disabled.
+     i'm not quite sure about it, but it seems to be like that in FT 2.05
+     (if not, change it back to what it was before in xm2mxm.cpp)
+
+  1.4: 30.6.96
+    -defines at the top of MXMPLAY.ASM to exclude unused effects
+    -XM2MXM generates include files for MXMPLAY.ASM to exclude unused effects
+
+  1.3: 10.4.96
+    -tremor
+    -set envelope position
+    -glissando
+    -if sustain is off no instrument changes are allowed
+    -relocation free code
+    -clean patterns fixed
+
+  1.2: 30.1.96
+    -source included
+    -sample offset corrected
+    -volume/global volume/panning slide corrected
+    -starting order adjustable
+
+  1.1: 21.12.95
+    -automatic gus detect, xmpInit changed
+    -global variable "__psp" needed for detect
+    -names have changed, underscores now after function names
+    -delta sample values for better compression
+    -sync now works :), thanks go to the one who told me...
+
+  1.0:  4.12.95
+    -first release
+
+
+
+
+    The conversion program:
+==============================================================================
+
+  XM2MXM [options] source [dest]
+
+  This program converts an XM to the internal format called MXM.
+  You might ask why another format, but this format shall not be used
+  for music interchange, it is just very easy to read and made the code
+  about 1k smaller.
+  If you want to play MODs or S3Ms you have to convert them to XM first.
+
+  options:
+    -p0:   XM-panning (instruments) (default)
+    -p1:  MOD-panning (LRRLLRRL)
+    -p2:  MOD-panning (less extreme)
+    -p3:  S3M-panning (LRLRLRLR)
+    -p4:  S3M-panning (less extreme)
+    -p5:    0-panning (MMMMMMMM)
+     -d:  do not use delta value samples
+     -i:  generate effects include file
+
+  If you want to play a MOD use -p1, -p2 to use correct panning.
+  A converted S3M would need -p3/4 if it uses standard panning, otherwise
+  you'd have to change the panning values in the header of the mxm.
+  (use -p1 and look for 00FFFF0000FFFF00...)
+
+  If you want to reduce the size of the code, use the -i parameter
+  and include the generated .INC file in MXMPLAY.ASM (place is marked).
+  If you want to play more than one module, combine the defines in the
+  .INC files with OR, except the USEFREQTAB define which must be 2 if
+  both frequency tables are used.
+
+
+
+    The MXM Format:
+==============================================================================
+
+  The MXM Format was designed to be easy to read, small, for use on a GUS
+  only, and to support all of FastTracker II's featues. It uses S3M like
+  pattern packing, so you can increase the number of channels without a
+  change in size (of course they would have to stay clear). The pattern
+  packing of XM would increase the size. The MXM format uses NO SAMPLE
+  PACKING, though it can use "delta values". If you want to pack the samples,
+  you can do so, as long as the song is passed to the xmpInit routine
+  unmodified. 3 dwords in the header tell you where to find the samples
+  and how many there are:
+    offset 1Ch: offset of the samples
+    offset 20h: number of 8 bit samples
+    offset 24h: number of 16 bit samples
+
+  You will find more detailed information on the format in the source code.
+
+
+
+
+    Notes on the implementation of the XM format:
+==============================================================================
+
+  E5x  (finetune)                not implemented
+  EFx  (funk repeat???)          set sync value
+  Sxx  -                         set sync value
+  Wxx  -                         set sync value
+
+  all other commands and features should be supported correctly.
+  bugreports to the address listed below, please...
+  i prefer tiny xm test modules with the bug isolated as far as possible.
+  send them uuencoded, it will save me a lot of time!
+
+
+
+    MXMPLAY.ASM and its functions:
+==============================================================================
+
+  At the top of MXMPLAY.ASM you find some setting you might wish to
+  change to reduce the size of MXMPLAY.OBJ. All the rest of the code can
+  stay unmodified in most cases.
+  With GETSETINTMODE you can set the supported irq set and get methods.
+  If you set DPMIPSPCODE or DOS32CODE to zero you can exclude functions
+  that determine the linear address of the environment.
+  You can replace mxmallfx.inc with an fx file generated by xm2mxm -i
+  which removes all code for unused fx from the object file.
+  EOS users should include eos.inc, but I've already included the needed
+  defines from v2.07 for eos.inc independence. (use /dUSEEOSINC)
+
+  To compile MXMPLAY.ASM with TASM use the following command line:
+    tasm mxmplay /m /ml
+
+  The object file was generated with TASM 3.1. It has one segment called
+  MXMPLAY_TEXT which is defined as dword public use32 'CODE'. It will link
+  to your flat mode programs without a problem.
+
+  -all function names end with an underscore and are case sensitive
+  -parameters are passed in registers
+  -on entry to all functions CS,DS,ES,SS must point to flat memory and
+    the direction flag must be clear
+
+  Watcom C/C++ coders must include mxmplay.h for correct access.
+  Assembler coders must include mxmplay.inc, assembly equivalents for
+  the C/C++ stuff are in brackets.
+
+  Function overview:
+
+    xmpInit
+    xmpPlay
+    xmpStop
+    xmpSetVolume
+    xmpGetSync
+    xmpGetPos
+    xmpGetTimer
+    xmpGetEnvPtr
+    xmpGetGUSPortDPMI
+    xmpGetGUSPortDOS32
+
+
+
+xmpInit: (xmpInit_)
+------------------------------------------------------------------------------
+  int xmpInit(void *mxmmem, unsigned long gusport, void *mxmdata,
+              unsigned long maxtimerrate, int getsetintmode);
+
+  Inits the soundsystem and prepares the module for playing.
+
+  mxmmem: (esi)
+    Pointer to the module. You must load the complete module from disk
+    and pass the address to this function.
+
+  gusport: (eax)
+    Port of the GUS or 0 for no sound.
+
+  mxmdata: (ebx)
+    Pointer to 16k of memory for internal use.
+
+  maxtimerrate: (ecx)
+    The maximum number of clock ticks (1193046 ticks/sec) between two
+    irq 0 calls. Never set this to more than 65536. Set this to 65536 if
+    you want to have a periodically called routine. Install your interrupt
+    handler after starting to play and deinstall before stopping to play.
+    The interval between two subsequent calls to the interrupt is no longer
+    than this value, but will vary while runtime.
+
+  getsetintmode: (edx)
+    determines which get/set irq method is to be used:
+      0: dpmi, works with DOS32, PMODE/W and other good dpmi servers
+      1: dos, works with DOS4G and PMODE/W
+      2: eos, works with EOS
+    use defines MXMINTMODE...
+
+  returnvalue: (eax)
+    0: failed (at the moment only if the module signature is wrong)
+    1: ok
+
+  modifies: eax ebx ecx edx esi edi
+
+
+
+xmpPlay: (xmpPlay_)
+------------------------------------------------------------------------------
+  void xmpPlay(unsigned int startord);
+
+  Enables the timer services and starts to play the module.
+
+  startord: (eax)
+    start playing at this order
+
+  modifies: eax ebx ecx edx esi edi
+
+
+
+xmpStop: (xmpStop_)
+------------------------------------------------------------------------------
+  void xmpStop();
+
+  Stop the sound output and disables the timer services.
+
+  modifies: eax ebx ecx edx esi edi
+
+
+
+xmpSetVolume: (xmpSetVolume_)
+------------------------------------------------------------------------------
+  void xmpSetVolume(unsigned char vol);
+
+  Set the relative volume.
+
+  vol: (al)
+    range 0 to 64.
+
+  modifies: nothing
+
+
+
+xmpGetSync: (xmpGetSync_)
+------------------------------------------------------------------------------
+  unsigned char xmpGetSync();
+
+  Returns the currently set syncvalue. You set the syncvalue with the command
+    EFx or Sxx. I do not really know how you usually do syncronisation, but
+    this might help. :)
+
+  returnvalue: (al)
+    the syncvalue
+
+  modifies: al
+
+
+
+xmpGetPos: (xmpGetPos_)
+------------------------------------------------------------------------------
+  unsigned short xmpGetPos();
+
+  Returns the current position in the song.
+
+  returnvalue: (ax)
+    highbyte: current order
+     lowbyte: current row
+
+  modifies: ax
+
+
+
+xmpGetTimer: (xmpGetTimer_)
+------------------------------------------------------------------------------
+  long xmpGetTimer();
+
+  Returns the timer value. This values starts at the first tick of the
+  module and counts up all the time at a rate of 1193046Hz.
+
+  returns: (eax)
+    the number of timer ticks since the first tick of the module.
+
+  modifies: eax
+
+
+
+xmpGetGUSPort: (xmpGetGUSPort_)
+------------------------------------------------------------------------------
+  unsigned long xmpGetGUSPort(void *envptr);
+
+  Reads the port of the GUS from the environment, or 0 if none is found.
+
+  envptr: (edi)
+    pointer to the environment segment. if 0 the function returns 0.
+
+  returns: (eax)
+    gus port
+
+  modifies: eax ecx edi
+
+
+
+xmpGetEnvPtrDPMI: (xmpGetEnvPtrDPMI_)
+------------------------------------------------------------------------------
+  void *xmpGetEnvPtrDPMI(unsigned long psp);
+
+  Gets a near pointer to the environment segment from the PSP selector.
+
+  psp: (eax)
+    PSP selector
+
+  returns: (edi)
+    pointer to the environment or 0 if failed
+
+  modifies: eax ebx ecx edx edi
+
+
+
+xmpGetEnvPtrDOS32: (xmpGetEnvPtrDOS32_)
+------------------------------------------------------------------------------
+  void *xmpGetEnvPtrDOS32();
+
+  Gets a near pointer to the environment segment under DOS32 extender.
+
+  returns: (edi)
+    pointer to the environment
+
+  modifies: eax ebx ecx edx esi edi
+
+
+
+
+    credits / greets:
+==============================================================================
+  -Crom / ethnica for DOS32 version.
+  -Eclipse for a version for their OS.
+  -Screamager for the tune.
+  -Axon / Xenon Dev. for wanting to help me with DOS32. (I did not get
+     further messages from you, but my email was not ok at that time...)
+  -__tim/fiction.h (Tamas Banka) for tmt pascal lite 0.31· unit
+     (what about an example?)
+
+
+    software & copyright & versions
+==============================================================================
+  -fasttracker II rocks, like most of Triton's prods.
+    tested with several xm modules
+  -pmode/w and pmwlite belong to Charles Sheffold and Thomas Pytel.
+    tested with v1.20 to v1.30
+  -dos4g(w) extender was done by Rational Systems and Tenberry Software.
+    tested with v1.95 and 1.97
+  -dos32 extender is brought to you by Adam Seychell.
+    tested with v3.3
+  -eos extender is something by Eclipse.
+    tested with v2.07
+  -watcom c/c++ imo is the best c/c++ around.
+    tested with v10.0 and v10.6
+  -tasm is the assembler.
+    tested with v3.1 and others
+  -wasm is another assembler without locals and 1 hour waste of time.
+    tested with v10.6
+  -masm is by microsoft... (you know!)
+    not tested, but will work.
+  -pmode extender is the reason for all the Tran greets.
+    not tested
+  -gravis ultrasound is a soundcard.
+    tested on various ones
+  -pc speaker sucks
+    failed all tests
+
+
+
+
+
+    contact information:
+==============================================================================
+
+snailmail:
+
+  Niklas Beisert / pascal
+  Oberstrasse 84
+  20149 Hamburg
+  Germany
+
+    Fido: Niklas Beisert@2:2437/301.44
+Internet: mxm@p44.nightmare.harz.de
+
+
+
+== FILE_ID.DIZ ===============================================================
+˛ cubic tiny gus ‹‹ xm player v1.6 ˛
+ ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹ €€ ‹‹‹ ‹‹ ‹‹‹‹‹‹‹‹
+    ‹‹‹‹‹ ‹‹  ‹‹ €€‹‹‹  ‹‹  ‹‹‹‹‹ tm
+   €€     €€  €€ €€  €€ €€ €€
+   €€     €€  €€ €€  €€ €€ €€
+    ﬂﬂﬂﬂﬂ  ﬂﬂﬂﬂﬂ ﬂﬂﬂﬂﬂ  ﬂﬂ  ﬂﬂﬂﬂﬂ
+ ﬂﬂﬂﬂ tiny gus xm player  v1.6 ﬂﬂﬂﬂ
+€                                  €
+€ new features:                    €
+€ -compilable with wasm (masm?)    €
+€ -sync also with Wxx              €
+€ -keyoff,no volenv,ins bug fixed  €
+€ -support for tmt pascal lt 0.31· €
+€                                  €
+€ -flat mode, no external functs   €
+€   needed. tested ok with dos4gw, €
+€   pmode/w, wc++, eos, dos32,     €
+€   tasm, wasm                     €
+€ -may work with masm, tmt pascal  €
+€ -supports gus & quiet (clean)    €
+€ -supports xm & mod               €
+€ -size: 5.6k, pmwlite size: 3.8k  €
+€ -all xm features supported       €
+€ -plays 99% of all effects        €
+€ -supplies timer, sync and volume €
+€   functions. autodetects gus.    €
+ﬂ                                  ﬂ
+ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ

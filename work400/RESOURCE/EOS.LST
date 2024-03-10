@@ -1,0 +1,11 @@
+..\wineos\wineos.lib
+gdi32.lib
+winmm.lib
+kernel32.lib
+user32.lib
+ddraw.lib
+dxguid.lib
+dinput.lib
+dsound.lib
+..\wineos\wineos.res
+/entry:DosStart

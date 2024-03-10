@@ -1,0 +1,12 @@
+
+PRG = Exampl18
+RES = ..\RESOURCE
+
+$(PRG).exe:    $(PRG).obj                  \
+
+        @tlink $(RES)\eoslite              \
+               $(RES)\Joystick             \
+               $(PRG),$(PRG).EXE /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm  $(PRG) /m /q /p

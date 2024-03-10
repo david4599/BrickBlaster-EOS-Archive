@@ -1,0 +1,81 @@
+
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 620, 460
+STYLE WS_POPUP
+//STYLE WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_VISIBLE
+//STYLE WS_POPUP
+//CAPTION "WinEOS Installation"
+FONT 8, "MS Sans Serif"
+CLASS "WinEOS Installation"
+BEGIN
+    CONTROL         IDB_APP_BITMAP,IDC_STATIC,"Static",SS_BITMAP,0,0,620,460
+    DEFPUSHBUTTON   "&Jouer"                    ,IDRUN    ,497,147,98,33
+    DEFPUSHBUTTON   "&Manuel"                   ,IDDOC    ,497,218,98,33
+    DEFPUSHBUTTON   "&Installation"             ,IDINSTALL,497,290,98,33
+    DEFPUSHBUTTON   "&DirectX"                  ,IDDIRECTX,497,363,98,33
+    DEFPUSHBUTTON   "&Quitter"                  ,IDQUIT   , 40,363,98,33
+    DEFPUSHBUTTON   "&Cadeau"                   ,IDBONUS  , 40,363,98,33
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_APP_BITMAP          BITMAP       "autorun.bmp"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "\r\n"
+    "\0"
+END
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
+#endif

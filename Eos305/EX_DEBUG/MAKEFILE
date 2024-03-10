@@ -1,0 +1,12 @@
+
+PRG = EXAMPLE6
+RES = ..\RESOURCE
+
+$(PRG).exe:    $(PRG).obj                  \
+
+        @tlink $(RES)\eoslite              \
+               $(RES)\debug                \
+               $(PRG),$(PRG).EXE /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm  $(PRG) /m /q /p

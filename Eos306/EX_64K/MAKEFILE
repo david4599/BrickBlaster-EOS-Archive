@@ -1,0 +1,15 @@
+
+PRG = EXAMPL13
+RES = ..\RESOURCE
+DAT = ..\DATA
+
+$(PRG).exe:    $(PRG).obj                  \
+               $(DAT)\test640.dlz          \
+               $(DAT)\eclipse.dlz
+
+        @tlink $(RES)\eoslite              \
+               $(RES)\vesa                 \
+               $(PRG),$(PRG).EXE /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm  $(PRG) /m /q /p

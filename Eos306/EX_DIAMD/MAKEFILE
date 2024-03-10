@@ -1,0 +1,16 @@
+
+PRG = DIAMOND
+RES = ..\RESOURCE
+
+$(PRG).exe:     $(RES)\$(PRG).OBJ       \
+                $(RES)\EOS.OBJ          \
+                $(PRG).obj
+
+ @tlink $(RES)\eos      \
+        $(RES)\diamond  \
+        $(PRG),         \
+        $(PRG).EXE  /3 /x
+        @Echo $(PRG) has been assembled
+
+$(PRG).obj:  $(PRG).ASM
+        @tasm $(PRG).ASM /m /q /p

@@ -1,0 +1,18 @@
+;            ษอออออออออออออออออออออออออออออออออออออออออออออออออออป
+;            บ     ๗๗๗๗๗๗๗๗๗๗๗๗๗๗ USMLOAD.INC ๗๗๗๗๗๗๗๗๗๗๗๗๗๗     บ
+;            บ                                                   บ
+;            บ                 Useless USM Loader                บ
+;            บฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤบ
+;            บ   By Freddy Vtel (FreddyV/Useless)              บ
+;            บ                                                   บ
+;            บ   Code starts .................. 19/08/1996       บ
+;            บ   Last update .................. 20/04/1997       บ
+;            ศอออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+if _WATCOM
+Global USM_Load_  :Near
+else
+Global USM_Load   :Near
+endif
+
+; USMLOAD.INC (c) 1997 FreddyV/Useless

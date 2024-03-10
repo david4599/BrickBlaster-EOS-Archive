@@ -1,0 +1,11 @@
+
+PRG = PLAY
+RES = ..\RESOURCE
+
+$(PRG).exe:    $(PRG).obj                  \
+
+        @tlink $(RES)\eoslite              \
+               $(PRG),$(PRG).EXE,,USM /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm  $(PRG) /m /q /p

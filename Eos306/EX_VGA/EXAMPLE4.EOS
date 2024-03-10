@@ -1,0 +1,5 @@
+LINKED.EXE              ; Name of the final exe
+EXAMPLE4.EXE            ; Name of the First exe
+..\data\test320.DLZ     ; All Data Must Be compress
+:END                    ; End Of Script
+

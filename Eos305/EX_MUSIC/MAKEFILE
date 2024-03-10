@@ -1,0 +1,12 @@
+
+PRG = EXAMPLE2
+RES = ..\RESOURCE
+
+$(PRG).exe:    $(PRG).obj
+
+        @tlink $(RES)\eos                  \
+               $(RES)\diamond.obj          \
+               $(PRG),$(PRG).EXE /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm  $(PRG) /m /q /p

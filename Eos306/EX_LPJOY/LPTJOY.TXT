@@ -1,0 +1,132 @@
+
+                             LPT Joystick adapter
+
+Building this LPT Joystick adapter is really easy. Easier than building its
+compatibles. Below you can see the PC Parallel port and the 9 pin Joystick
+port. Both viewed from the side you have connect them with wires.
+
+  The PC Parallel port:
+
+            SELECT   BUSY            DATA 7 - DATA 0
+              ณ       ณ       ฺฤฤฤฤฤฤฤฤฤฤฤฤฤมฤฤฤฤฤฤฤฤฤฤฤฤฤฟ
+              V       V       ณ                           ณ
+           ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+           บ 13  12  11  10   9   8   7   6   5   4   3   2   1   บ
+           บ  o   o   o   o   o   o   o   o   o   o   o   o   o   บ
+           ศอป                                                  ษอผ
+             บ  o   o   o   o   o   o   o   o   o   o   o   o   บ
+             บ 25  24  23  22  21  20  19  18  17  16  15  14   บ
+             ศออออออออออออออออออออออออออออออออออออออออออออออออออผ
+                ณ                           ณ
+                ภฤฤฤฤฤฤฤฤฤฤฤฤฤยฤฤฤฤฤฤฤฤฤฤฤฤฤู
+                           GROUND
+
+  C64/Amiga/Atari 9 pin Joystick port:
+
+                              RIGHT LEFT DOWN UP
+                                  ณ   ณ   ณ   ณ
+                                  V   V   V   V
+                           ษออออออออออออออออออออออป
+                           บ  5   4   3   2   1   บ
+                           บ  o   o   o   o   o   บ
+                           ศอป                  ษอผ
+                             บ  o   o   o   o   บ
+                             บ  9   8   7   6   บ
+                             ศออออออออออออออออออผ
+                                    ^       ^
+                                    ณ       ณ
+                                  GROUND   FIRE
+
+  Connect the following pins for Joy 1:
+
+                           Joy 1               Parallel
+
+                           1 (UP)--------------2 (DATA0)
+                           2 (DOWN)------------3 (DATA1)
+                           3 (LEFT)------------4 (DATA2)
+                           4 (RIGHT)-----------5 (DATA3)
+                           6 (FIRE)------------13 (SELECT)
+                           8 (GROUND)----------25 (GROUND)
+
+  Connect the following pins for Joy 2:
+
+                           Joy 2               Parallel
+
+                           1 (UP)--------------6 (DATA4)
+                           2 (DOWN)------------7 (DATA5)
+                           3 (LEFT)------------8 (DATA6)
+                           4 (RIGHT)-----------9 (DATA7)
+                           6 (FIRE)------------11 (BUSY)
+                           8 (GROUND)----------25 (GROUND)
+
+And this is all. You only need a Parallel LPT plug, a cable with at least 12
+wires and two 9 pin Joystick ports. This adapter was designed and copyrighted
+by Credo, you have the right to use, build and code it. In this directory you
+can find a little program (LJOYTEST.EXE) to test this cable. You also can find
+its Assembly source in this directory (LJOYTEST.ASM) to learn how to code this
+adapter under EOS. If you have more questions, e-mail me at credo@bigfoot.com.
+
+                           LPT Joystick adapter FAQ
+
+Q: What do I need to build this adapter?
+A: You need a standard PC Parallel LPT plug, a cable with at least 12 wires
+and two 9 pin Joystick ports as you can see above.
+
+Q: Where can I buy the Parallel plug and the at least 12 wires cable?
+A: I think you can find everywhere little electronic shops for the hobby
+hardware makers. In the USA there are a lot of shops like this, called Radio
+Shack. You sure can find this plug and cable somewhere.
+
+Q: Where can I buy the 9 pin Joystick ports?
+A: I think this is a real problem. Try to ask in little electronic shops (in
+the USA Radio Shack). Also you can remove these plugs from old broken
+hardwares like C64, ZX Spectrum adapter, Amiga and others. (Remember, remove
+it on your own risk and remove only if the hardware is really broken.) Also
+you can cut in half your Joystick cable and connect the cable directly to the
+Parallel plug. (Cut it on your own risk and cut it only if you are sure you
+never gonna use your Joystick in a standard Joystick port.)
+
+Q: Is this adapter compatible with the Champ Cable?
+A: No. I think Champ Cable is just as simple as this one, but the wires
+are connected to different pins.
+
+Q: Is this adapter compatible with the Amiga 4-Player-Adapter?
+A: Yes. There was some adapters available for the Amiga with or without games.
+This adapter is 100% compatible with those. It means you can use those
+adapters with EOS and you can use this adapter with a lot of Amiga games.
+(I've tested only Dan Rhodes Dogfight, Kick Off 2 and Great Courts 2. All of
+them worked perfectly.)
+
+Q: Are you responsible for anything?
+A: No. Building and using this adapter can't cause any problems as we know.
+Anyway, we are not responsible for any software or hardware damage, work or
+profit loss or anything else caused by the building, not building, using or
+not using this adapter. Build or not build, use or not use it on your own
+risk. If you are too young to be responsible for you activities (below 18
+years, but depends allways on the local laws too), your parents or guardians
+are responsible for your activities.
+
+Q: How long can be the cable?
+A: I think you don't need a too long cable. But as I know a longer cable can
+work too. Use a long cable if you wish. Everything depends on the resistance
+of the cable you use. This is a digital parallel adapter, the resistance can't
+cause as much problem as in the serial or analog things.
+
+Q: My AutoFire doesn't works good on PC. What is the problem?
+A: The AutoFire on these Joysticks are using the 5V available on pin 4 of the
+C64, Amiga and Atari ports. With the Amiga 4-Player-Adapter you also can use
+the AutoFire, because there is 5V available on pin 14 of the Amiga Parallel
+port. But on the PC Parallel port there is no 5V, and I left it making the
+cable more easy to build. If you really need the AutoFire, try to get the 5V
+from the PC GamePort or an additional power source. Without 5V the AutoFire
+doesn't blinking just set the FireButton on. (This also can be useful
+sometimes.)
+
+Q: Only the two FireButtons are working. What is the problem?
+A: There is a problem with the ECP Parallel ports. With these you can't use
+this and the compatible adapters. These Parallel ports are built to a lot of
+486 and Pentium boards. You can change the port to SPP, ECP, EPP and combined
+modes, but nothing will help. Buy an additional LPT card and disable the on
+board Parallel port. The additional LPT card will work and is very cheap.
+
+Credo <credo@bigfoot.com>

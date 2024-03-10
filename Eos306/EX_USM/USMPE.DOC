@@ -1,0 +1,335 @@
+
+
+		ÛÛ   Û  ÛÛÛÛÛ   ÛÛÛ ÛÛ      /---/  /       /---/   \   /
+		ÛÛ   Û  ÛÛ      ÛÛ Û Û     /---/  /       /---/     \-/
+		ÛÛ   Û  ßßßßÛ   ÛÛ   Û    /      /____   /   /      /
+		ßßßßßß  ßßßßß   ßß   ß
+
+		     Useless Module Player v1.0 (04/23/1997)
+			    By FreddyV/Useless
+
+
+     
+     1. Introduction
+     2. Features and overall description
+	2.1. Player structure
+	2.2. Availables XM features
+     3. Files description
+     4. How to use USM play
+	4.1. Sound devices setup
+	4.2. Loading and playing a music
+	4.3. Synchronisation
+	4.4. The setup file
+     5. Timer and memory functions.
+	5.1. Timer functions (in TIMER.ASM)
+	5.2. Memory functions (in MEMORY.ASM)
+     6. Known bugs and problems
+     7. Greetings
+     8. Disclaimer
+     9. How to contact us
+
+
+  1. Introduction.
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+	A lot of coders were applying for a Sound Blaster and GUS XM player
+    using EOS, DOS32 or PMODE/W. USM Play is made for them.
+
+       I have produced this sound system because our first demo was supposed
+    to be under DOS32 and, except MXM play, there were no DOS32 sound system.
+
+       After some months, we discovered EOS and we decided to move to it.
+
+       I decided to keep the DOS32 compatibility, that's why USM play is
+     a DOS32 and EOS sound system.
+
+       The PMODE/W support was added later because it's the most known DOS 
+     extender.
+
+  2. Features and overall description.
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+       USM Play can play STM, MOD, USM and XM files.
+
+       It was coded in full FLAT 32 bit ASM using the DOS32, EOS and PMODE/W
+     DOS extenders. I will later add support for more file formats (IT and S3M)
+
+       The player is designed to be used for demos and intros.
+
+       With the demos, you will have a full sound system including a file 
+     loader, a setup menu, a memory and timer manager, and GUS & SB drivers.
+                                                                
+       USM play can also be used for intros. It's possible to reduce its
+     size by removing some features (drivers and loaders) and you can link
+     the music in the exe file. (USM format only)               
+                                                                
+    2.1. Player structure.                                      
+                                                                
+       There are 5 different parts in USM play:
+	    	                                                
+	  The general 'system' functions.                      
+	       They are the timer, memory, IRQ and DMA functions.
+                                                                
+	  The loaders.                                         
+	       USM Play can load STM, MOD, USM and XM files.    
+	     STM, MOD and XM files are internally converted to USM format.
+                                                                
+	  The player.                                          
+	       It plays the internal file format. (USM)         
+                                                                
+	  The sound system.                                    
+	       The sound system functions are totally independant on
+	     the selected output device. It's here to hide the samples,
+	     instruments and sound drivers from the player.     
+                                                                
+	  The sound drivers.                                   
+	       I have done some drivers for the GUS, SB sound cards,
+	     internal PC speaker (it was just for fun) and no sound.
+                  
+    2.2. Available XM features.
+		      
+       All XM effects and features are supported except:
+                  
+	  Set Envelope Pos
+	  Glissando control
+	  Set Finetune
+                  
+       I hope it will be enough...        
+                  
+  3. Directory and Files description.
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                  
+   Source code files are in /SRC directory.
+                  
+        Player and sound system
+                  
+	  usmplay.asm  Useless player (USM player)
+	  usmplay.inc  Player functions definitions
+	  uss.asm      Useless Sound System
+	  uss.inc      Sound System functions definition
+	  usm.inc      USM file structures (File format)
+	  ussvar.asm   Sound system variables and constants
+	  ussvar.inc
+                  
+        The sound drivers
+                  
+	 gusdrv.asm    GUS Driver
+	 gusdrv.inc
+	 sbdrv.asm
+	 sbconst.inc
+	 hpdrv.asm     PC speaker driver
+	 nosnddrv.asm  No sound driver
+                  
+	 mix.asm       Mixed device functions
+	 mix.inc  
+                  
+        The loaders
+                  
+	 stmload.asm    STM Loader
+	 stmload.inc
+	 modload.asm    MOD Loader
+	 modload.inc
+	 xmload.asm     XM Loader
+	 xmload.inc
+	 usmload.asm    USM Loader
+	 usmload.inc
+                  
+	 loadutil.asm   Common functions for all the loaders
+	 loadutil.inc
+                  
+        Misc files
+                  
+	 files.asm      Files functions
+	 files.inc
+	 hardware.asm   DMA/IRQ and Environment variables functions
+	 hardware.inc
+                  
+	 memory.asm     Memory functions
+	 memory.inc     Memory functions definition and Memory macro
+	 timer.asm      Multi timers manager
+	 timer.inc
+                  
+	 err_code.inc
+	 error.asm
+                  
+	 macros.inc
+	 utils.asm
+	 utils.inc
+                  
+   The player examples are in /EOS, /DOS32, /EX1, /EX2, /PMODEW
+   and /PMW_C directory.
+                  
+   /DATA contains the music example in XM and OBJ formats.
+                  
+   USMCONV.EXE is the MOD/STM/XM to USM converter.
+                  
+  4. How to use USM play.
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    
+    4.1. Sound devices setup
+                    
+       Useless sound system has two setup functions.
+                    
+	 USS_Setup: It's the setup menu function.
+                  
+	 USS_AutoSetup: It does an automatic sound card detection.
+		  	 It's also smaller than USS_Setup. (Usefull for intros)
+                                                                               
+       The Sound Blaster driver needs the BLASTER environment variable.        
+       The GUS driver does an hardware detection of the GUS port.              
+                                                                               
+    4.2. Loading and playing a music                                           
+                                                                               
+       See the example files.
+                                                                               
+    4.3. Synchronisation.                                                      
+                                                                               
+       With USM Play, you can synchronize your program with the music.         
+     You will have to put some Zxx command in the music with FT2.              
+     (It only works with XM and USM files)                                     
+                                                                               
+       When USM Play detects a Zxx effects, it adds 1 to _SynchroCount and      
+     it copies the effect parameter in _SynchroVal.
+       You can also detect the music end whith the _MusicEnd variable.         
+                      
+      ASM example:    
+                      
+      _Loop:          
+	              
+	    ...  (Your great 3D part)
+	              
+	    cmp _MusicEnd,0 (Or cmp _SynchroVal,xx)
+	    je _Loop
+                    
+      C example:      
+	            
+	do          
+	 {          
+	  ...       
+	 } while (MusicEnd==0); (Or Synchroval==xx)
+                    
+    4.4. The setup files
+                    
+       OS.INC and SETUP.INC are the most important files for USM play.
+                    
+       The SETUP.INC file allows you to add or remove some USM play parts.
+     (See the comments in SETUP.INC)
+                       
+       Before compiling the USM Play files, make sure to specify the correct
+     DOS extender's name in OS.INC
+              
+              
+  5. Timer and memory functions.
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  
+   There is an example of timer and memory function call in the /EX2 directory.
+                       
+    5.1. Timer functions (in TIMER.ASM)
+                       
+       Since the player needs a timer, you must use the USM play timer 
+     functions. USM play has its own timer library, it allows you to have 
+     different timers. (The number of timers can be changed in SETUP.INC)
+                       
+  	  Timer_Start_
+                       
+	   Input: EAX Timer Procedure Offset
+		  EBX Timer Speed ( EBX/1193180 hz )
+                       
+	   Output: CF clear => Ok
+		   CF set   => EAX=TE_NoFreeTimer (No more timer available)
+
+	  Timer_Stop_
+
+	   Input: EAX Timer Proc to stop.
+
+	   Output: CF clear => Ok
+		   CF set   => EAX=TE_NotFound (It's not a correct proc offset)
+
+    5.2. Memory functions (in MEMORY.ASM)
+
+       USM play has its own memory heap, you can reduce the heap size if you
+     don't want to use the USM memory functions. (in SETUP.INC)
+
+       You don't have to use these functions under WATCOM C because USM Play
+     uses the WATCOM memory functions.
+         
+	  _Maxavail  Return the length of the biggest available memory block.
+	  _Malloc    Allocate a memory block.
+	  _Calloc    Allocate and clear a memory block.
+	  _Free      Free a memory block.
+         
+       You can also call memory functions with the equivalent macros.
+         
+	  Maxavail
+	  Malloc
+	  Calloc
+	  Free
+         
+  6. Known bugs and problems
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+         
+       It doesn't work under DOS4G/W, but who still use it ?
+     (however, I will try to correct this...)
+         
+       The WATCOM C++ conversion is not finished yet. Sorry.
+     It works fine under WATCOM C (I hope...).
+         
+       You must use TASM v4.0 or above for the PMODE/W version.
+ 	 
+       It wasn't tested under WINDOWS 95. If it crashes, it's probably
+     because of the GUS Hardware detection/Initialisation.
+                                                       
+       If you can fix this bug, please send me the new GUS driver.
+     (I can't correct it by now as I don't have WINDOWS 95 and
+     I'm in the military service)
+                                                       
+  7. Greetings.                                        
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄ                                        
+                                                       
+     	 - Light Show & Hacker Croll                   
+	    EOS and Magic biniou rulezzz !             
+                                                       
+	 - Pascal/Cubic Team                           
+	    Thanx for mxm play, it helped me a lot.            
+                                                       
+	 - Petteri Kangaslampi et Jarno Paananen       
+	    Thanks for MIDASS and your SB code.        
+    	    (I was too lazy to do the SB driver 100% by myself, hope you will
+            not kill me for that...)
+                                                       
+    	 - TBF/HCL and PPC/HCL, I'm watching out for your next production !
+                                                                           
+	 - Phar and Roudoudou/Flower corp                                  
+	     Flower corp bump domination !             
+                                    
+	 - Quick and Mercure/Warm inside
+                                    
+	 - GandalF/Pulse, The best Sysop in the world.
+                                    
+	 - Bisounours/Aegis, Our WHQ Sysop ;)
+
+	 - All my IRC friends (PaF, O_Menor, X-Man... )
+	    I will come back one day on IRC... will you still be there...?
+                                               
+	 - All Useless members (Hornet/Index/Satanic/-M-/PSL/SFC & Xortianc)
+                                               
+  8. Disclaimer                                
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄ                                
+                                               
+       Useless can't be made liable for any damages caused by this package.
+                                               
+       USM play is FREEWARE and must not be sent, or used in any commercial
+     or shareware production.                  
+                                               
+       If you want to use USM play in non-FREEWARE production, you must
+     contact me before.                        
+                                               
+       The USM play original archive must be distributed in an unmodified form.
+	                                       
+  9. How to contact us.                        
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                        
+                                               
+     See Useless info file for contact info.   
+                                               
+                                               
+						   FreddyV/Useless

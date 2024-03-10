@@ -1,0 +1,11 @@
+
+PRG = CDROM
+RES = ..\RESOURCE
+
+$(PRG).exe:     $(PRG).obj       \
+
+        @tlink  $(RES)\eoslite   \
+                $(RES)\cdrom     \
+                $(PRG),$(PRG).EXE /3 /x
+.asm.obj:
+        @tasm $*.asm /m /q /p /ml

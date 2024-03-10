@@ -1,0 +1,97 @@
+
+RPATH = ..\resource
+
+!if $d(DXSDKROOT)
+
+PRG     = test
+
+ULIB    = .\lib
+UINC    = .\include
+
+ASMDEP  =
+CDEP    =
+
+CFLAGS  = -W3 -D_X86_=1 -D_WIN32 -DWIN32 -DWINVER=0x0400 \
+          -I=$(UINC) -I=..\resource -5s -zw -d0 -fp5 -ox
+
+RFLAGS  = -D_X86_=1 -DWIN32 -DWINVER=0x0400 -I=$(UINC) -I=..\resource
+
+AFLAGS  = /ml /m /p /q /i$(UINC) /D_WIN32=1 /DWIN32=1 /DWINVER=0x0400
+
+all: wineos.lib $(PRG).EXE
+
+
+!else
+
+ULIB    =
+UINC    =
+
+ASMDEP  =
+CDEP    =
+
+CFLAGS  =
+
+LFLAGS  =
+#LLIBS
+LLIBS   =
+RFLAGS  =
+AFLAGS  = /ml /m /p /q /i$(UINC) /D_WIN32=1 /DWIN32=1 /DWINVER=0x0400
+
+all: eos.obj
+
+!endif
+
+wineos.obj: kernel.asm            \
+                  $(RPATH)\eos.inc      \
+                  wineos.asm            \
+                  joystick.asm          \
+                  vesa.asm              \
+                  eos.asm               \
+                  eos_zik.asm           \
+                  mono.asm              \
+                  alloc.asm             \
+                  loadfile.asm          \
+                  Writefil.asm          \
+                  int.asm               \
+                  int_33.asm            \
+                  int_21.asm            \
+                  int_16.asm            \
+                  int_08.asm            \
+                  int_09.asm
+        @echo *******************************************************************************
+!if $d(DXSDKROOT)
+        @echo                            Windows Detected
+        @echo     Setup for :
+        @echo                        EOS - Dos & Win32 Release
+!else
+        @echo                             Dos Detected
+        @echo     Setup for :
+        @echo                           EOS - Dos Release
+!endif
+        @echo *******************************************************************************
+#        @tasm Kernel.asm EOS  /ml /m /q /dUse_Diamond=1
+#        @tasm Kernel.asm EOSLITE /ml /m /q /dUse_Diamond=0
+!if $d(DXSDKROOT)
+        @tasm wineos.asm WINEOS /ml /m /q /dUse_Diamond=1 /dWIN32
+        @tasm wineos.asm WINEOSLT /ml /m /q /dUse_Diamond=0  /dWIN32
+!endif
+        @Echo EOS 4.00 has been assembled
+        @copy eos*.obj $(RPATH)
+
+
+$(PRG).exe: test.obj eosc.obj ddraw.obj dinput.obj wineos.obj wineos.res ..\diam95\diamond.lib getdxver.obj
+            link /SUBSYSTEM:WINDOWS -out:$@ test.obj ..\RESOURCE\WINSNAP.OBJ @..\RESOURCE\EOS.LST
+
+wineos.lib: wineos.obj eosc.obj wineos.res dinput.obj ddraw.obj ..\diam95\diamond.lib  getdxver.obj
+            lib /out:wineos.lib wineos.obj eosc.obj dinput.obj ddraw.obj \
+                 getdxver.obj ..\diam95\diamond.lib
+
+
+.c.obj:
+        wcc386 $(CFLAGS) $*.c
+.cpp.obj:
+        wpp386 $(CFLAGS) $*.cpp
+.asm.obj:
+        tasm $(AFLAGS) $<,$*
+.rc.res:
+        rc $(RFLAGS) $*.rc

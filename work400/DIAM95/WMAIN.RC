@@ -1,0 +1,25 @@
+#include "resource.h"
+#include "windows.h"
+
+IDR_MENU1 MENU DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open",                       ID_FILE_OPEN
+        MENUITEM "&Save",                       ID_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Quit",                       ID_FILE_QUIT
+    END
+END
+
+IDD_DSENUMBOX DIALOG DISCARDABLE  0, 0, 184, 63
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose a DirectSound Driver..."
+FONT 8, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,34,43,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,100,43,50,14
+    COMBOBOX        IDC_DSENUM_COMBO,4,12,176,36,CBS_DROPDOWNLIST |
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Driver Description:",IDC_STATIC,4,4,116,8
+END

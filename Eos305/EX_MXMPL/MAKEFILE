@@ -1,0 +1,15 @@
+
+PRG = EOSEXAM
+RES = ..\RESOURCE
+
+$(PRG).exe:    $(PRG).obj                  \
+               mxmplay.obj
+        @tlink $(RES)\eoslite              \
+               mxmplay.obj                      \
+               $(PRG),$(PRG).EXE /3 /x
+
+$(PRG).obj: $(PRG).asm
+        @tasm $(PRG) /m /q /p
+
+mxmplay.obj: mxmplay.asm
+        @tasm mxmplay /m /q /p

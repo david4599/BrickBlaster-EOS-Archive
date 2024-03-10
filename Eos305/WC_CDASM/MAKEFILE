@@ -1,0 +1,18 @@
+PROGNAME = CDROM
+RES      = ..\RESOURCE
+
+ASMFLAGS = /m /p /q
+ASM = TASM
+
+.asm.obj:
+        $(ASM) $(ASMFLAGS) $*
+
+
+all: $(PROGNAME).exe
+
+$(PROGNAME).obj : $(PROGNAME).asm
+
+$(PROGNAME).exe : $(PROGNAME).obj
+
+   @wlink F $(PROGNAME),$(RES)\WCDROM \
+          @$(RES)\eos.lnk system eos_asm

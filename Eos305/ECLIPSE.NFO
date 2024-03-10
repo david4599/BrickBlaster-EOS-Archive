@@ -1,0 +1,151 @@
+                                   __
+                                  /\_\         _______
+              _______            / / /        / ___  /\
+             / _____/\          / / /        / /\_/ / /
+            / /\____\/______   / / / __     / _____/ /_______
+           / _____/\ /\  ___\ / /_/ /\ \   / /\____\//\  ____\
+          / /\____\/ \ \ \__/ \ \ \ \ \ \ /_/ /      \ \ \___/_
+         /______/\    \ \ \____\ \_\ \ \ \\_\/_______ \ \  ____\
+         \______\/     \ \_____\\/_/  \ \_\  /\  ____\ \ \ \___/_
+                        \/_____/       \/_/  \ \ \___/_ \ \______\
+                                              \ \_____ \ \/______/
+                                               \/_____\ \
+                                                 /\______\
+                                                 \/______/
+
+
+Eclipse's productions_________________________________________________________
+______________________________________________________________________________
+
+Name                     Vers  Type         Update Config
+
+Wavy                     1.00  Intro        09/94  VGA/SB/GUS
+Happy                    1.00  Module       09/94  -
+Mode3                    1.01  Util         11/94  VGA
+Load                     1.2   Util         11/94  VGA/VESA
+Arkanoid                 1.0   Game         11/94  VGA
+Die_ass                  1.00  Module       12/94  -
+The One                  1.00  IntroBBS     01/95  VGA/GUS
+Jade                     1.00  Intro        01/95  VGA/GUS
+Poof                     1.11  Game         03/95  VGA/SB/GUS
+Demineur                 1.0   Game         03/95  VGA
+Fast                     2.2   Player FLC   05/95  VGA
+Lisa                     1.00  Demo         08/95  XMS Only/VESA/SB/GUS
+Deluxe Paint Extender    1.02  Util         11/95  -
+Zanybird Pack 1          1.00  Gfx          11/95  -
+Crypt                    1.21  Util         03/96  -
+Profil Pack 1            1.00  Gfx          03/96  -
+64Kb Tune Disk           1.00  ChipDisk     03/96  VGA/SB/GUS
+Wired'95                 1.02  Report       05/96  VESA/SB/GUS
+Teddybear's Revenge      1.01  Intro        06/96  VGA/SB/GUS
+Magic Biniou             1.01  Demo         06/96  VGA/SB/GUS
+FastLite                 3.03  Player FLC   07/96  VGA/VESA/SB/GUS
+EOS                      3.05  Dos Extender 07/97  -
+Diamond Player           3.05  Player       07/97  VESA/SB/GUS
+Greedy (Eclipse Pacman)  1.09  Game         07/97  VESA/SB/GUS
+Fitup (Eclipse Tetris)   0.72бяGame         07/97  VESA/SB/GUS
+
+
+Eclipse Pacman All of fame____________________________________________________
+______________________________________________________________________________
+
+        309600 JR
+        294630 LOLO
+        255900 HACKER CROLL
+        239680 FRED
+        227240 ISA
+        000000
+        000000
+        000000
+        000000
+        000000
+
+
+Address_______________________________________________________________________
+______________________________________________________________________________
+
+    ю To get in touch with ECLIPSE for any questions write to :
+
+
+    Code______________________________________________________________________
+
+    RADERMACHER Marc (Hacker Croll)           VIDAL Regis (Light Show)
+    3, route de champagne - Bѓt C             Le logis neuf
+    69130 ECULLY                              38780 ESTRABLIN
+    FRANCE                                    FRANCE
+
+
+    Gfx_______________________________________________________________________
+
+    BOUFFARD Loic (Zany Bird)                 BOX Frederic (Profil)
+    Chemin de l'abri                          La chapelle villars
+    38121 CHONAS L'AMBALLAN                   42410 PELUSSIN
+    FRANCE                                    FRANCE
+
+    LACHAUX Patrick (Soopl)
+    Rue st marc - CIDEX A23bis
+    69440 TALLUYERS
+    FRANCE
+
+
+    Music_____________________________________________________________________
+
+    RESIGNE Christophe (Rez)
+    1200, rue a. rimbaud
+    33560 SAINTE EULALIE
+    FRANCE
+
+
+
+Internet______________________________________________________________________
+______________________________________________________________________________
+
+
+    ю E-Mail Adress : Eclipse@aic.fr
+
+
+
+BBS___________________________________________________________________________
+______________________________________________________________________________
+
+    ю Every of our release are available on any of the following site :
+
+    Name              Country     Number                 Speed
+
+France________________________________________________________________________
+
+    ACE               France      (+33) 01 45 887 548    -28.8kBps-
+                                  Sysop:Gandalf/PULSE
+                                  ю Eclipse FHQ ю
+
+    Direct Connection France      (+33) 01 454 816 59    -33.6kBps-
+                                  Sysop:OBIWANN
+                                  ю Eclipse Distro ю
+
+    Equalizer         France      (+33) 01 452 519 23    -28.8kBps-
+                                  Sysop:Thorin/MELON DEZIGN & MVT
+                                  ю Eclipse Distro ю
+
+    Flood Land        France      (+33) 04 902 883 42    -28.8kBps-
+                                  Sysop:Patriot/S!P & SCOOPEX
+                                  ю Eclipse Distro ю
+
+    Dune              France      (+33) 01 487 904 22    -28.8kBps-
+                                  Sysop:Bisounours/TINY TOONS
+                                  ю Eclipse Distro ю
+
+    Self Destruction  France      (+33) 01 698 936 03    -33.6kBps-
+                                  Sysop:BloOd aNGeL
+                                  ю Eclipse Distro ю
+
+Norway________________________________________________________________________
+
+    Count 0           Norway     (+47) 551 229 62       -28.8kBps-
+                                 Sysop:Yitzhaq/maak/DrD
+                                 ю Eclipse NHQ ю
+
+Poland________________________________________________________________________
+
+    Dark Storm        Poland      (+48) 52 613738        -33.6kBps-
+                                  Sysop:REM/Procreation & Substance
+                                  ю Eclipse PHQ ю

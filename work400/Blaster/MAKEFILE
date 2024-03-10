@@ -1,0 +1,11 @@
+RFLAGS  = -D_X86_=1 -DWIN32 -DWINVER=0x0400 -I=..\resource
+
+blaster.exe: blaster.res blaster.obj
+
+.asm.obj:
+        @tasmX $*.asm $*.obj /m /q /p /dWIN32
+        @wlink N blaster.exe F blaster.obj op res blaster.res @..\resource\eos.lnk system wineos
+        @del blaster.obj
+
+.rc.res:
+        rc $(RFLAGS) $*.rc

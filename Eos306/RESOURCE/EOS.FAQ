@@ -1,0 +1,65 @@
+
+* Impossibilit‚ de d‚tourner une interruption ???
+
+    Exemple pour une interruption :
+
+            ; sauvegarde de l'ancien vecteur...
+
+            mov ah,Get_IRQ
+            mov bl,1        ; (IRQ 1 = INT 9 = Clavier)
+            Int_EOS
+            mov Old_IRQ1_vector,edx
+            mov word ptr Old_IRQ1_vector+4,cx
+
+            ; d‚tournement de l'interruption...
+
+            cli
+            mov ah,Set_IRQ
+            mov bl,1
+            mov EDX,offset Int9
+            mov cx,cs
+            Int_EOS
+            sti
+
+    Note : en mode proteger on d‚tourne des IRQs !!!
+    Donc pour detourner l'interruption 9 (clavier) il faut en realiter
+    d‚tourner l'irq 1...
+
+    Exemple pour une exception :
+
+            ; sauvegarde de l'ancien vecteur...
+
+            mov ah,Get_Exception
+            mov bl,13
+            Int_EOS
+            mov [Old_Adr_Int13],edx
+            mov [Old_Sel_Int13],cx
+
+            ; d‚tournement de l'exception...
+
+            mov ah,Set_Exception
+            mov bl,13
+            mov cx,cs
+            mov edx,O Exception_13
+            Int_EOS
+
+
+* Cr‚ation d'un buffer sour les 640ko
+
+            Allocation m‚moire sous les 640ko...
+
+            xor eax,eax
+            mov ah,48h
+            mov bx,512/16
+            DosInt 21h
+            jnz Error
+
+            Convertion de l'adresse en seg:offset
+
+            mov [Seg_Buffer],eax
+            shl eax,4
+            sub eax,[Code32_Addr]
+            mov [Offset_Buffer],eax
+
+
+

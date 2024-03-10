@@ -1,0 +1,26 @@
+ зддддддддд© зддддддддд© зддддv3.06©
+ ю©  зддд© Ё Ё  зддд©  Ё Ё  здддддды
+  Ё  юдд©юды Ё  Ё   Ё  Ё Ё  юдддддд©
+  Ё  зддызд© Ё  Ё   Ё  Ё юдддддд©  Ё
+ зы  юддды Ё Ё  юддды  Ё здддддды  Ё
+ юддддддддды юддддддддды юддддддддды
+ Dos Extender for Watcom Tasm & Masm
+      Replaces DOS4GW & PMODEW
+
+ * Easy and handy pmode system for
+   Windows 3.1, 95, NT or Dos
+ * Support Watcom C++, Tasm and Masm
+ * Support DPMI 0.90
+ * VESA 1.0 (Automatic Bank Switching)
+ * VESA 2.0 (Linear FrameBuffer)
+ * Include a powerful debugger
+ * Include a sound system (GUS/SB/WSS)
+ * Kewly linker, and compressor
+   completly transparent to the user
+ * Include a large number of well
+   commented examples for Tasm and
+   Watcom C
+ * Now Fully compatible with
+   Windows NT
+
+ ! Use PkUnzip -d to extract files

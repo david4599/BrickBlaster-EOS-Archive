@@ -1,0 +1,38 @@
+
+                     Gif LOader By nanard / DGRT .
+
+
+   ş Ce r‚pertoire contient (lors de son envoi … Eclipse) :
+   ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+file_id.diz	: description en fran‡ais
+file_id.us	: description en anglais
+gifload.nfo	: description du contenu du r‚pertoire et petite explication.
+eclipse.gif	: un fichier Gif d'exemple (3169 octets seulement)
+
+
+ ş Mon loader :
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+giflib.obj	: La bibliothŠque gif
+gif.inc		: Le fichier include contenant les d‚claration necessaires au
+		 fonctionnement de la bibliothŠque plus une doc sur les entr‚es
+		 sorties de la proc‚dure gif_load.
+gif_ob.asm	: Le source d'exemple pour montrer comment on se sert de
+		 giflib.obj pour charger un gif.
+
+notes:
+ÄÄÄÄÄÄ
+   ş Le makefile sera surement rajout‚ par hacker croll. De plus, il doit
+	adapter ma librairie pour WATCOM.
+
+   ş Avant toute utilisation, jetez un oeil sur les fichiers asm et le inc.
+
+   ş Pour linker efficacement :
+   ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+TLink ..\RESOURCE\EOSLITE votreprogramme ..\EX_GIF\GIFLIB, votreprog.exe /3
+
+  Il est pr‚f‚rable que giflib soit … la fin du exe car j'y ai fait une utili-
+sation intensive du "db ?" : vos executables seront ainsi plus petits, mˆme
+aprŠs compression avec LZexe ou Diet.

@@ -1,0 +1,8 @@
+LINKED.EXE              ; Name of the final exe
+..\RESOURCE\WEOS.EXE    ; Name of the First exe
+LINKED.LE               ; Name of the Le File must be the same
+                        ; As the final exe
+                        ; You can now compress the .le file
+..\data\test320.DLZ     ; All Data
+..\data\test.MOD        ; the module
+:END

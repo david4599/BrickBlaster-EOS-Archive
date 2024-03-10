@@ -1,0 +1,16 @@
+
+PRG = GIF_OB
+RES = ..\RESOURCE
+
+$(PRG).exe:     $(PRG).OBJ              \
+                $(RES)\EOSLITE.OBJ      \
+                giflib.obj
+
+ @tlink $(RES)\eoslite  \
+        giflib          \
+        $(PRG),         \
+        $(PRG).EXE  /3 /x
+        @Echo $(PRG) has been assembled
+
+$(PRG).obj:  $(PRG).ASM
+        @tasm $(PRG).ASM /m /q /p

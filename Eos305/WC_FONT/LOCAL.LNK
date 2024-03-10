@@ -1,0 +1,12 @@
+name .\FONT.EXE
+debug Watcom
+option osname='Eclipse Operating System'
+option stub=..\RESOURCE\weoslite.exe
+format os2 le
+file ..\RESOURCE\WSTARTUP
+file ..\RESOURCE\WVESA
+file ..\RESOURCE\DEBUG
+libpath %WATCOM%\lib386
+libpath %WATCOM%\lib386\dos
+file .\FONT.OBJ
+file .\EXAMPLE.OBJ

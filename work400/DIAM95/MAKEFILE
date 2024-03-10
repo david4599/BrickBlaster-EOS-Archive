@@ -1,0 +1,43 @@
+PRG     = wmain
+ULIB    = .\lib
+UINC    = .\include
+ULIB2   = ..\lib95
+UINC2   = ..\inc95
+
+ASMDEP  = $(UINC)\diamond.inc mixing.asm play_mod.asm sfx.asm effect.Asm
+CDEP    =
+
+CFLAGS  = -D_X86_=1 -D_WIN32 -DWIN32 -DWINVER=0x0400 /I=$(UINC) -5r -fp5 -ox -d0
+
+
+RFLAGS  = -D_X86_=1 -D_WIN32 -DWIN32 -DWINVER=0x0400 /I $(UINC)
+
+LLIBS   =  dsound.lib
+
+all : diamond.lib $(PRG).exe
+
+$(PRG).exe: $(PRG).obj diamond.lib diamond.obj
+        link -subsystem:console -out:$(PRG).exe  \
+        $(PRG).obj $(PRG).res diamond.lib \
+        $(LLIBS)
+
+diamond.lib: diamond.obj diam95.obj
+        lib /out:diamond.lib diamond.obj diam95.obj
+
+
+
+
+.rc.res:
+        rc $(RFLAGS) $*.rc
+.c.obj:
+        wcc386 $(CFLAGS) -zw $*.c
+.cpp.obj:
+        wcc386 $(CFLAGS) -zw $*.cpp
+.asm.obj:
+        tasm $*.asm /ml /m /p /q /i$(UINC) /DWIN32=1
+
+$(PRG).obj: $(PRG).c $(CDEP)
+
+lslmod.obj: lslmod.c $(CDEP)
+
+diamond.obj: diamond.asm $(ASMDEP)
